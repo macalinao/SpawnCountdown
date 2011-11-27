@@ -1,0 +1,11 @@
+name: SpawnCountdown
+description: A simple spawn countdown timer.
+version: 1.0
+author: AlbireoX
+
+main: com.crimsonrpg.spawncountdown.SpawnCountdown
+
+commands:
+  spawn:
+    description: Respawns the player who used the command after counting down.
+    usage: /spawn
