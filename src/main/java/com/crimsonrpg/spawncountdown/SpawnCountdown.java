@@ -17,6 +17,7 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -85,8 +86,15 @@ public class SpawnCountdown extends JavaPlugin {
             
             if (start == 0) {
                 player.sendMessage(ChatColor.YELLOW + "Returning to spawn...");
+                
                 Location spawn = player.getWorld().getSpawnLocation();
-                player.teleport(spawn);
+                
+                PlayerRespawnEvent mock = new PlayerRespawnEvent(player, spawn, false);
+                Bukkit.getPluginManager().callEvent(mock);
+                
+                Location realSpawn = mock.getRespawnLocation();
+                
+                player.teleport(realSpawn);
                 Bukkit.getScheduler().cancelTask(spawning.get(player));
                 spawning.remove(player);
             } else {
